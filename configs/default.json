@@ -1,0 +1,27 @@
+{
+    "tau": 1.0,
+    "price_dist": {
+        "type": "normal",
+        "mu": 10.0,
+        "sigma": 4.0,
+        "lower_bound": 2.0
+    },
+    "obfuscation_dist": {
+        "type": "normal",
+        "mu": 1.0,
+        "sigma": 0.5
+    },
+    "demand": {
+        "type": "linear",
+        "slope": -1.0,
+        "y_intercept": 0.0
+    },
+    "search_cost": {
+        "type": "power",
+        "scale": 1.0,
+        "power": 1.1,
+        "offset": 0.0
+    },
+    "N_firms": 100,
+    "N_consumers": 1000
+}
