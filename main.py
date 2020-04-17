@@ -5,18 +5,22 @@ from Consumer import Consumer
 from Market import Market
 from numpy import mean, max, min
 from tqdm import tqdm
+from time import time
 
 
 def run_simulation(
         consumers: List[Consumer],
         market: Market,
         tau: float) -> dict:
-    for c in tqdm(consumers, desc='Consumers playing...'):
+    start = time()
+    for c in tqdm(consumers, desc='Consumers playing'):
         c.play(market=market)
+    print("[Main] run_simulation() took {:.2f}s".format(float(time() - start)))
     return {
         'firm_profits': [f.get_profit() for f in market.firms],
         'firm_prices': [f.price for f in market.firms],
-        'consumer_search_costs': [c.get_final_search_cost() for c in consumers],
+        'consumer_search_costs': [c.get_final_search_cost()
+                                  for c in consumers],
         'consumer_prices': [c.get_lowest_price() for c in consumers],
         'consumer_search_count': [c.search_count for c in consumers]
     }

@@ -1,4 +1,4 @@
-from numpy import exp
+from numpy import exp, infty, float128
 
 
 class Curve:
@@ -56,20 +56,18 @@ class Linear(Curve):
 
 class NegativeSigmoid(Curve):
     def __init__(self,
-                 spread: float,
-                 center: float,
                  lower_bound=0.0,
                  upper_bound=1.0):
-        self.center = center
-        self.spread = spread
+        self.displacement = lower_bound
+        self.spread = (upper_bound - self.displacement)
         super().__init__(
-            lower_bound=lower_bound,
-            upper_bound=upper_bound)
+            lower_bound=0,
+            upper_bound=infty)
 
     def get_fn(self):
         # TODO remove hardcode
         return lambda input:\
-            1 / (1 + exp(input))
+            1 / (1 + exp(float128(input / self.spread - self.displacement)))
 
 
 def create_curve(curve_config: dict):

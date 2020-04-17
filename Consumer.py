@@ -7,7 +7,6 @@ from scipy.integrate import quad
 
 
 class Consumer:
-    # TODO allow consumer to not enter market
     def __init__(self,
                  search_cost: Curve):
         self.p_0_firm = None  # Firm with lowest price so far
@@ -41,16 +40,18 @@ class Consumer:
 
     def should_keep_searching(self,
                               market: Market,
-                              t_mean: float):
-        return self.compute_keep_search_benefit(market=market) > \
-            self.compute_keep_search_cost(tau=market.tau, t_mean=t_mean)
+                              search_cost: float):
+        return search_cost <\
+            self.compute_keep_search_benefit(market=market)
 
     def play(self, market: Market):
         remaining_firms = copy(market.firms)
         # average obfuscation level
         t_mean = market.compute_mean_obfuscation_level()
+        search_cost = self.compute_keep_search_cost(
+            tau=market.tau, t_mean=t_mean)
         while self.should_keep_searching(
-                market=market, t_mean=t_mean):
+                market=market, search_cost=search_cost):
             firm = remaining_firms[
                 np.random.choice(len(remaining_firms))]
             remaining_firms.remove(firm)

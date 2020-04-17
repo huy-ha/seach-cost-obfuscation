@@ -1,0 +1,8 @@
+{
+    "tau": 0.0,
+    "obfuscation_dist": {
+        "type": "normal",
+        "mu": 0.0,
+        "sigma": 0.0
+    }
+}

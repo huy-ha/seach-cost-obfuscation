@@ -1,0 +1,7 @@
+{
+    "obfuscation_dist": {
+        "type": "normal",
+        "mu": 5.0,
+        "sigma": 0.5
+    }
+}
